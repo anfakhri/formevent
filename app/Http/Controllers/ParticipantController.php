@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ParticipantCreateRequest;
+use Inertia\Inertia;
 use App\Models\Participant;
 use Illuminate\Http\Request;
+use App\Http\Requests\ParticipantCreateRequest;
 
 class ParticipantController extends Controller
 {
@@ -14,11 +15,12 @@ class ParticipantController extends Controller
     public function index()
     {
         //
-        $participant = Participant::all();
-        // dd($participant);
-        return view('admin/participant',[
-            'participant'=>$participant,
-        ]);
+        // $participant = Participant::all();
+        // // dd($participant);
+        // return view('admin/participant',[
+        //     'participant'=>$participant,
+        // ]);
+        return Inertia::render('Form/ParticipantsForm');
     }
 
     /**
