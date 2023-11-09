@@ -20,7 +20,9 @@ class ParticipantController extends Controller
         // return view('admin/participant',[
         //     'participant'=>$participant,
         // ]);
-        return Inertia::render('Form/ParticipantsForm');
+        return Inertia::render('Form/ParticipantsForm', [
+            'title' => 'Participant Form',
+        ]);
     }
 
     /**
