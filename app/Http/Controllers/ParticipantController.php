@@ -35,7 +35,10 @@ class ParticipantController extends Controller
     public function store(ParticipantCreateRequest $request)
     {
         //
-        $participant = Participant::create($request->all());
+        $validated = $request->validated();
+        Participant::create($validated);
+
+        return back()->with('success','Data has been Saved Successfully');
     }
 
     /**
