@@ -40,7 +40,13 @@ class ParticipantController extends Controller
     {
         //
         $validated = $request->validated();
-        Participant::create($validated);
+        Participant::create(
+            [
+                'name'=> $validated['name'],
+                'email'=> $validated['email'],
+                'phone'=> $validated['phone'],
+            ]
+            );
 
         return back()->with('success','Data has been Saved Successfully');
     }
