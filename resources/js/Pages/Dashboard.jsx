@@ -13,7 +13,7 @@ import {
 const invoices = [
     {
         invoice: "INV001",
-        paymentStatus: "Paid",
+        paymentStatus: "jkashdjklashdjkashdkhsahdsajkhd",
         totalAmount: "$250.00",
         paymentMethod: "Credit Card",
     },
@@ -55,7 +55,8 @@ const invoices = [
     },
 ];
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth, participants }) {
+    console.log(participants.links);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -73,39 +74,64 @@ export default function Dashboard({ auth }) {
                         <div className="p-6 text-gray-900">
                             <Table>
                                 <TableCaption>
-                                    A list of your recent invoices.
+                                    A list of recent participants.
                                 </TableCaption>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="w-[100px]">
-                                            Invoice
+                                        <TableHead className="w-[100px] text-center">
+                                            #
                                         </TableHead>
-                                        <TableHead>Status</TableHead>
-                                        <TableHead>Method</TableHead>
-                                        <TableHead className="text-right">
-                                            Amount
-                                        </TableHead>
+                                        <TableHead>Name</TableHead>
+                                        <TableHead>E-Mail</TableHead>
+                                        <TableHead>Phone Number</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {invoices.map((invoice) => (
-                                        <TableRow key={invoice.invoice}>
-                                            <TableCell className="font-medium">
-                                                {invoice.invoice}
-                                            </TableCell>
-                                            <TableCell>
-                                                {invoice.paymentStatus}
-                                            </TableCell>
-                                            <TableCell>
-                                                {invoice.paymentMethod}
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                {invoice.totalAmount}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
+                                    {participants.data.map(
+                                        (participant, index) => (
+                                            <TableRow key={participant.id}>
+                                                <TableCell className="font-medium text-center">
+                                                    {participants.per_page *
+                                                        (participants.current_page -
+                                                            1) +
+                                                        index +
+                                                        1}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {participant.name}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {participant.email}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {participant.phone}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    )}
                                 </TableBody>
                             </Table>
+                            <div className="mt-4">
+                                {participants.links.map((link, index) => (
+                                    <span key={index} className="mr-2">
+                                        <button
+                                            onClick={() =>
+                                                participants.current_page !==
+                                                    link.url &&
+                                                window.location.assign(link.url)
+                                            }
+                                            className={`px-3 py-1 border ${
+                                                participants.current_page ===
+                                                link.url
+                                                    ? "bg-blue-500 text-white"
+                                                    : "bg-white"
+                                            }`}
+                                        >
+                                            {link.label}
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
