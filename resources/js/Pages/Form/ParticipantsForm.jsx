@@ -1,131 +1,116 @@
 import { Button } from "@/Components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/Components/ui/card";
 import { Label } from "@/Components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Head } from "@inertiajs/react";
+import { cn } from "@/lib/utils";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 
 function ParticipantsForm(props) {
+    const { message } = usePage().props;
+
+    const { data, setData, errors, post } = useForm({
+        email: "",
+        name: "",
+        phone: "",
+    });
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        post(route("post.participant"));
+
+        data.email = "";
+        data.name = "";
+        data.phone = "";
+    }
+
     return (
-        <>
+        <div className="flex flex-col justify-center items-center mt-28">
             <Head title={props.title} />
-            {/* <header className="">
-                <div className="container">
-                    <div className="text-center items-center justify-between relative mt-5">
-                        <h2 className="text-2xl font-bold">Participant Form</h2>
-                    </div>
-                </div>
-            </header> */}
-            <div className="h-screen grid col-span-12 place-items-center">
-                <div className="w-1/2 bg-blue-200 border rounded-xl p-5">
-                    <h2 className="text-2xl col-span-12 font-bold mb-4">
-                        Participant Form
-                    </h2>
-                    <form action="" method="post" className="space-y-4">
-                        <div>
-                            <Label
-                                htmlFor="email"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Email:
-                            </Label>
+            <Card
+                className={cn("md:w-[500px] shadow-lg bg-primary-foreground")}
+            >
+                <CardHeader className="text-center">
+                    <CardTitle>Participant Form</CardTitle>
+                    <CardDescription>
+                        Please fill this form below
+                    </CardDescription>
+                </CardHeader>
+                <form onSubmit={handleSubmit}>
+                    <CardContent className={cn("grid grid-cols-12 gap-5")}>
+                        <div className="grid w-full col-span-12 items-center gap-1.5">
+                            <Label htmlFor="email">Email :</Label>
                             <Input
                                 type="email"
-                                name="email"
                                 id="email"
-                                className="w-1/2"
+                                placeholder="Email"
+                                name="email"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData("email", e.target.value)
+                                }
                                 required
                             />
+                            {errors.email && (
+                                <span className="text-red-600">
+                                    {errors.email}
+                                </span>
+                            )}
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="name"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Name:
-                            </Label>
+                        <div className="grid w-full col-span-12 items-center gap-1.5">
+                            <Label htmlFor="name">Name :</Label>
                             <Input
                                 type="text"
-                                name="name"
                                 id="name"
-                                className="w-1/2"
+                                name="name"
+                                placeholder="Name"
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
                                 required
                             />
+                            {errors.name && (
+                                <span className="text-red-600">
+                                    {errors.name}
+                                </span>
+                            )}
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="phone"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Phone Number:
-                            </Label>
+                        <div className="grid w-full col-span-12 items-center gap-1.5">
+                            <Label htmlFor="phone">Phone Number :</Label>
                             <Input
                                 type="tel"
-                                name="phone"
                                 id="phone"
-                                className="w-1/2"
-                                required
-                            />
-                        </div>
-                        <Button>Submit</Button>
-                    </form>
-                </div>
-            </div>
-            {/* <div className="h-screen flex items-center justify-center container">
-                <div className="w-1/2 bg-blue-200 border rounded-xl p-5">
-                    <h2 className="text-2xl font-bold mb-4">
-                        Participant Form
-                    </h2>
-                    <form action="" method="post" className="space-y-4">
-                        <div>
-                            <Label
-                                htmlFor="email"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Email:
-                            </Label>
-                            <Input
-                                type="email"
-                                name="email"
-                                id="email"
-                                className="w-1/2"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <Label
-                                htmlFor="name"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Name:
-                            </Label>
-                            <Input
-                                type="text"
-                                name="name"
-                                id="name"
-                                className="w-1/2"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <Label
-                                htmlFor="phone"
-                                className="text-lg block font-semibold mb-2"
-                            >
-                                Phone Number:
-                            </Label>
-                            <Input
-                                type="tel"
                                 name="phone"
-                                id="phone"
-                                className="w-1/2"
+                                placeholder="Phone"
+                                value={data.phone}
+                                onChange={(e) =>
+                                    setData("phone", e.target.value)
+                                }
                                 required
                             />
+                            {errors.phone && (
+                                <span className="text-red-600">
+                                    {errors.phone}
+                                </span>
+                            )}
                         </div>
-                        <Button>Submit</Button>
-                    </form>
-                </div>
-            </div> */}
-        </>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className={cn("w-full")} type="submit">
+                            Submit
+                        </Button>
+                    </CardFooter>
+                </form>
+            </Card>
+        </div>
     );
 }
 

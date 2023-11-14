@@ -24,8 +24,26 @@ class ParticipantCreateRequest extends FormRequest
         return [
             //
             'name'=> 'required|max:50',
-            'email'=> 'unique:participants',
-            'phone'=> 'required|max:13',
+            'email'=> 'required|unique:users,email',
+            'phone'=> 'required|numeric|digits_between:10,13',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama wajib diisi',
+            'name.max' => 'Maksimal 50 karakter',
+            'email.required' => 'Email wajib diisi',
+            'email.unique' => 'Email sudah pernah dipakai',
+            'phone.required' => 'Nomor HP wajib diisi',
+            'phone.digits_between' => 'Minimal 10 digit dan Maksimal 13 digit',
+            'phone.numeric' => 'Nomor HP harus berupa angka',
         ];
     }
 }

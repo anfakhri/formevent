@@ -15,7 +15,7 @@ class DashboardController extends Controller
         //     'title' => 'Dashboard'
         // ]);
 
-        $participants = Participant::paginate(10);
+        $participants = Participant::latest()->paginate(10);
 
         return Inertia::render('Dashboard', [
             'participants' => $participants,

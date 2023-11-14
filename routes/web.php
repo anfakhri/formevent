@@ -42,5 +42,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/',[ParticipantController::class,'index'])->name('participant');
+Route::post('/', [ParticipantController::class, 'store'])->name('post.participant');
 
 require __DIR__.'/auth.php';

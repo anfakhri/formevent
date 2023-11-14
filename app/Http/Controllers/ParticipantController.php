@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Http\Requests\ParticipantCreateRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class ParticipantController extends Controller
 {
@@ -38,7 +39,6 @@ class ParticipantController extends Controller
      */
     public function store(ParticipantCreateRequest $request)
     {
-        //
         $validated = $request->validated();
         Participant::create(
             [
@@ -46,9 +46,9 @@ class ParticipantController extends Controller
                 'email'=> $validated['email'],
                 'phone'=> $validated['phone'],
             ]
-            );
+        );
 
-        return back()->with('success','Data has been Saved Successfully');
+        return Redirect::to('https://www.google.com')->with('success','Data has been Saved Successfully');
     }
 
     /**
