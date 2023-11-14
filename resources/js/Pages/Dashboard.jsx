@@ -127,7 +127,11 @@ export default function Dashboard({ auth, participants }) {
                                                     : "bg-white"
                                             }`}
                                         >
-                                            {link.label}
+                                            {link.label === "&laquo; Previous"
+                                                ? "Prev"
+                                                : link.label === "Next &raquo;"
+                                                ? "Next"
+                                                : link.label}
                                         </button>
                                     </span>
                                 ))}
