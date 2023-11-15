@@ -84,6 +84,7 @@ export default function Dashboard({ auth, participants }) {
                                         <TableHead>Name</TableHead>
                                         <TableHead>E-Mail</TableHead>
                                         <TableHead>Phone Number</TableHead>
+                                        <TableHead>Instansi</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -105,6 +106,9 @@ export default function Dashboard({ auth, participants }) {
                                                 </TableCell>
                                                 <TableCell>
                                                     {participant.phone}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {participant.instansi}
                                                 </TableCell>
                                             </TableRow>
                                         )
