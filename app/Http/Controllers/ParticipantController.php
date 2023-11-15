@@ -45,10 +45,11 @@ class ParticipantController extends Controller
                 'name'=> $validated['name'],
                 'email'=> $validated['email'],
                 'phone'=> $validated['phone'],
+                'instansi'=> $validated['instansi'],
             ]
         );
 
-        return Redirect::to('https://www.google.com')->with('success','Data has been Saved Successfully');
+        return back()->with('success','Data has been Saved Successfully');
     }
 
     /**

@@ -17,7 +17,8 @@ class ParticipantSeeder extends Seeder
             Participant::create([
                 'name' => 'contoh data ' . $i,
                 'email' => 'sueb' . $i . '@gmail.com',
-                'phone' => '0822167198' + $i
+                'phone' => '0822167198' + $i,
+                'instansi' => 'contoh instansi' . $i,
             ]);
         }
     }

@@ -11,10 +11,12 @@ import { Label } from "@/Components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Head, useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function ParticipantsForm(props) {
     const { message } = usePage().props;
+    const [successMessage, setSuccessMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { data, setData, errors, post } = useForm({
         email: "",
@@ -22,14 +24,46 @@ function ParticipantsForm(props) {
         phone: "",
     });
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        post(route("post.participant"));
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     post(route("post.participant"));
 
-        data.email = "";
-        data.name = "";
-        data.phone = "";
-    }
+    //     data.email = "";
+    //     data.name = "";
+    //     data.phone = "";
+    // }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setIsSubmitting(true);
+
+        try {
+            post(route("post.participant"), {
+                onSuccess: () => {
+                    setSuccessMessage(
+                        "Data Berhasil Disimpan, Silahkan Klik Button Dibawah untuk Melanjutkan"
+                    );
+
+                    setData("email", "");
+                    setData("name", "");
+                    setData("phone", "");
+                },
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    useEffect(() => {
+        if (successMessage) {
+            const timeoutId = setTimeout(() => {
+                setSuccessMessage("");
+            }, 8000);
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [successMessage]);
 
     return (
         <div className="flex flex-col justify-center items-center mt-28">
@@ -43,6 +77,11 @@ function ParticipantsForm(props) {
                         Please fill this form below
                     </CardDescription>
                 </CardHeader>
+                {successMessage && (
+                    <div className="text-center text-sm text-green-600 mb-3">
+                        {successMessage}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <CardContent className={cn("grid grid-cols-12 gap-5")}>
                         <div className="grid w-full col-span-12 items-center gap-1.5">
@@ -104,11 +143,19 @@ function ParticipantsForm(props) {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button className={cn("w-full")} type="submit">
-                            Submit
+                        <Button
+                            className={cn("w-full")}
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Submitting..." : "Submit"}
                         </Button>
                     </CardFooter>
                 </form>
+                <hr className="w-full" />
+                <a href="https://www.google.co.id/" className="ml-[25%]">
+                    <Button className="w-1/2 my-5">test</Button>
+                </a>
             </Card>
         </div>
     );

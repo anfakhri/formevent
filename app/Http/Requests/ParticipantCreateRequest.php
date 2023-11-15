@@ -26,6 +26,7 @@ class ParticipantCreateRequest extends FormRequest
             'name'=> 'required|max:50',
             'email'=> 'required|unique:users,email',
             'phone'=> 'required|numeric|digits_between:10,13',
+            'instansi' => 'required',
         ];
     }
 
@@ -44,6 +45,7 @@ class ParticipantCreateRequest extends FormRequest
             'phone.required' => 'Nomor HP wajib diisi',
             'phone.digits_between' => 'Minimal 10 digit dan Maksimal 13 digit',
             'phone.numeric' => 'Nomor HP harus berupa angka',
+            'instansi.required' => 'Instansi wajib diisi',
         ];
     }
 }
