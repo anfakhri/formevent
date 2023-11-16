@@ -56,7 +56,6 @@ const invoices = [
 ];
 
 export default function Dashboard({ auth, participants }) {
-    console.log(participants.links);
     return (
         <AuthenticatedLayout
             user={auth.user}
