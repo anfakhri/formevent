@@ -22,6 +22,7 @@ function ParticipantsForm(props) {
         email: "",
         name: "",
         phone: "",
+        instansi: "",
     });
 
     // function handleSubmit(e) {
@@ -36,23 +37,20 @@ function ParticipantsForm(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setIsSubmitting(true);
+        post(route("post.participant"), {
+            onSuccess: () => {
+                setSuccessMessage(
+                    "Data Saved Successfully, Please Click the Button Below to Continue"
+                );
 
-        try {
-            post(route("post.participant"), {
-                onSuccess: () => {
-                    setSuccessMessage(
-                        "Data Berhasil Disimpan, Silahkan Klik Button Dibawah untuk Melanjutkan"
-                    );
+                data.email = "";
+                data.name = "";
+                data.phone = "";
+                data.instansi = "";
 
-                    setData("email", "");
-                    setData("name", "");
-                    setData("phone", "");
-                },
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
+                setIsSubmitting(true);
+            },
+        });
     };
 
     useEffect(() => {
@@ -64,9 +62,10 @@ function ParticipantsForm(props) {
             return () => clearTimeout(timeoutId);
         }
     }, [successMessage]);
+    console.log(isSubmitting);
 
     return (
-        <div className="flex flex-col justify-center items-center mt-28">
+        <div className="flex flex-col justify-center items-center mt-24">
             <Head title={props.title} />
             <Card
                 className={cn("md:w-[500px] shadow-lg bg-primary-foreground")}
@@ -78,7 +77,7 @@ function ParticipantsForm(props) {
                     </CardDescription>
                 </CardHeader>
                 {successMessage && (
-                    <div className="text-center text-sm text-green-600 mb-3">
+                    <div className="text-center text-sm text-green-600 mb-5">
                         {successMessage}
                     </div>
                 )}
@@ -141,6 +140,25 @@ function ParticipantsForm(props) {
                                 </span>
                             )}
                         </div>
+                        <div className="grid w-full col-span-12 items-center gap-1.5">
+                            <Label htmlFor="instansi">Instansi :</Label>
+                            <Input
+                                type="text"
+                                id="instansi"
+                                name="instansi"
+                                placeholder="Instansi"
+                                value={data.instansi}
+                                onChange={(e) =>
+                                    setData("instansi", e.target.value)
+                                }
+                                required
+                            />
+                            {errors.instansi && (
+                                <span className="text-red-600">
+                                    {errors.instansi}
+                                </span>
+                            )}
+                        </div>
                     </CardContent>
                     <CardFooter>
                         <Button
@@ -148,13 +166,19 @@ function ParticipantsForm(props) {
                             type="submit"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? "Submitting..." : "Submit"}
+                            {isSubmitting
+                                ? "Thank you for submitting"
+                                : "Submit"}
                         </Button>
                     </CardFooter>
                 </form>
                 <hr className="w-full" />
                 <a href="https://www.google.co.id/" className="ml-[25%]">
-                    <Button className="w-1/2 my-5">test</Button>
+                    <Button className="w-1/2 my-5" disabled={!isSubmitting}>
+                        {!isSubmitting
+                            ? "Please click submit"
+                            : "Please click this button"}
+                    </Button>
                 </a>
             </Card>
         </div>
