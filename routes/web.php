@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
+
+    Route::get('/participant/export', [ParticipantController::class, 'export'])->name('export.participant');
 });
 
 Route::get('/',[ParticipantController::class,'index'])->name('participant');
