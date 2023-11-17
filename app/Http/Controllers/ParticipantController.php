@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ParticipantExport;
 use Inertia\Inertia;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use App\Http\Requests\ParticipantCreateRequest;
 use Illuminate\Support\Facades\Redirect;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ParticipantController extends Controller
 {
@@ -82,5 +84,9 @@ class ParticipantController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function export() {
+        return Excel::download(new ParticipantExport, 'Participants.xlsx');
     }
 }

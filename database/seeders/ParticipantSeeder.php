@@ -18,7 +18,7 @@ class ParticipantSeeder extends Seeder
                 'name' => 'contoh data ' . $i,
                 'email' => 'sueb' . $i . '@gmail.com',
                 'phone' => '0822167198' + $i,
-                'instansi' => 'contoh instansi' . $i,
+                'instansi' => 'contoh instansi ' . $i,
             ]);
         }
     }
