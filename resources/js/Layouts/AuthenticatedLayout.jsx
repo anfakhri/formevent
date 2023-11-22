@@ -29,6 +29,15 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                             </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href={route("event.index")}
+                                    active={route().current("event.index")}
+                                >
+                                    Configuration Event
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
@@ -131,6 +140,15 @@ export default function Authenticated({ user, header, children }) {
                             active={route().current("dashboard")}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div className="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink
+                            href={route("event.index")}
+                            active={route().current("event.index")}
+                        >
+                            Configuration Event
                         </ResponsiveNavLink>
                     </div>
 
