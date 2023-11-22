@@ -13,8 +13,9 @@ class ParticipantSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             Participant::create([
+                'event_id' => $i,
                 'name' => 'contoh data ' . $i,
                 'email' => 'sueb' . $i . '@gmail.com',
                 'phone' => '0822167198' + $i,

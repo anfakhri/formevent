@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -38,6 +39,10 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+    });
+
+    Route::controller(EventController::class)->group(function () {
+        Route::get('/event', 'index')->name('event.index');
     });
 
     Route::get('/participant/export', [ParticipantController::class, 'export'])->name('export.participant');
