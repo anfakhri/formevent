@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import React from "react";
 
-function ConfigurationEvent({ auth }) {
+function ConfigurationEvent({ auth, events }) {
     return (
         <>
             <AuthenticatedLayout
@@ -29,20 +29,18 @@ function ConfigurationEvent({ auth }) {
                             <div className="p-6 text-gray-900">
                                 <Table>
                                     <TableCaption>
-                                        A list of recent participants.
+                                        A list of recent events.
                                     </TableCaption>
                                     <TableHeader>
                                         <TableRow>
                                             <TableHead className="w-[100px] text-center">
                                                 #
                                             </TableHead>
-                                            <TableHead>Name</TableHead>
-                                            <TableHead>E-Mail</TableHead>
-                                            <TableHead>Phone Number</TableHead>
-                                            <TableHead>Instansi</TableHead>
+                                            <TableHead>Event Name</TableHead>
+                                            <TableHead>Link</TableHead>
                                         </TableRow>
                                     </TableHeader>
-                                    <TableBody></TableBody>
+                                    <TableBody>{/* data maping */}</TableBody>
                                 </Table>
                             </div>
                         </div>
