@@ -40,8 +40,55 @@ function ConfigurationEvent({ auth, events }) {
                                             <TableHead>Link</TableHead>
                                         </TableRow>
                                     </TableHeader>
-                                    <TableBody>{/* data maping */}</TableBody>
+                                    <TableBody>
+                                        {events.data.map((event, index) => (
+                                            <TableRow key={event.id}>
+                                                <TableCell className="font-medium text-center">
+                                                    {events.per_page *
+                                                        (events.current_page -
+                                                            1) +
+                                                        index +
+                                                        1}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {event.name}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {event.link}
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
                                 </Table>
+                                <div className="mt-4">
+                                    {events.links.map((link, index) => (
+                                        <span key={index} className="mr-2">
+                                            <button
+                                                onClick={() =>
+                                                    events.current_page !==
+                                                        link.url &&
+                                                    window.location.assign(
+                                                        link.url
+                                                    )
+                                                }
+                                                className={`px-3 py-1 border ${
+                                                    events.current_page ===
+                                                    link.url
+                                                        ? "bg-blue-500 text-white"
+                                                        : "bg-white"
+                                                }`}
+                                            >
+                                                {link.label ===
+                                                "&laquo; Previous"
+                                                    ? "Prev"
+                                                    : link.label ===
+                                                      "Next &raquo;"
+                                                    ? "Next"
+                                                    : link.label}
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
